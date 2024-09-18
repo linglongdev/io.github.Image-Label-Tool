@@ -1,0 +1,28 @@
+version: "1"
+
+package:
+  id: io.github.Image-Label-Tool
+  name: Image-Label-Tool
+  version: 0.0.0.1
+  kind: app
+  description: |
+    图片标记工具
+
+command:
+  - /opt/apps/io.github.Image-Label-Tool/files/bin/LabelImg
+
+base: org.deepin.foundation/23.0.0
+runtime: org.deepin.Runtime/23.0.1
+
+sources:
+  - kind: git
+    url: https://github.com/wjyrich/Image-Label-Tool.git
+    version: master
+    commit: b937bd55d7f64a4e8b84641cdb182206f895c39f
+
+build: |
+  cd /project/linglong/sources/Image-Label-Tool.git
+  cd src
+  qmake -makefile PREFIX=${PREFIX} LIB_INSTALL_DIR=${PREFIX}/lib/${TRIPLET}
+  make -j$(nproc)
+  make install
